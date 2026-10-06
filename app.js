@@ -1,1 +1,59 @@
-const P=[["태국 자스민쌀","ข้าวหอมมะลิ",12900,"🍚"],["똠얌 라면","บะหมี่ต้มยำ",1500,"🍜"],["스위트 칠리소스","ซอสพริกหวาน",4900,"🌶️"],["코코넛 밀크","กะทิ",3200,"🥥"]];let L="ko",C={};function m(n){return"₩"+n.toLocaleString()}function draw(){lang.textContent=L==="ko"?"ไทย":"한국어";welcome.textContent=L==="ko"?"창타이마트":"ช้างไทยมาร์ท";sub.textContent=L==="ko"?"태국 식품을 편리하게 주문하세요":"สั่งซื้อสินค้าไทยได้ง่ายๆ";products.innerHTML=P.map((p,i)=>`<div class=card><div class=icon>${p[3]}</div><b>${p[L==="ko"?0:1]}</b><p>${m(p[2])}</p><button onclick="add(${i})">${L==="ko"?"담기":"ใส่ตะกร้า"}</button></div>`).join("");drawCart()}function add(i){C[i]=(C[i]||0)+1;drawCart()}function drawCart(){let s=0;cart.innerHTML=Object.entries(C).map(([i,q])=>{s+=P[i][2]*q;return`<div class=row><span>${P[i][L==="ko"?0:1]} × ${q}</span><b>${m(P[i][2]*q)}</b></div>`}).join("")||"<p>—</p>";total.textContent=m(s)}lang.onclick=()=>{L=L==="ko"?"th":"ko";draw()};order.onclick=()=>{msg.textContent=(!name.value||!phone.value||!Object.keys(C).length)?"이름, 전화번호와 상품을 확인해주세요.":"주문이 접수되었습니다."};draw();
+const P = [
+  ["태국 자스민쌀", "ข้าวหอมมะลิ", 12900, "🍚"],
+  ["똠얌 라면", "บะหมี่ต้มยำ", 1500, "🍜"],
+  ["태국 고추", "พริกไทย", 3500, "🌶️"],
+  ["코코넛", "มะพร้าว", 2900, "🥥"]
+];
+
+let cart = {};
+
+function addCart(index) {
+  cart[index] = (cart[index] || 0) + 1;
+  renderCart();
+}
+
+function renderCart() {
+  const cartBox = document.getElementById("cart");
+  if (!cartBox) return;
+
+  let html = "<h2>장바구니</h2>";
+  let total = 0;
+
+  Object.keys(cart).forEach(index => {
+    const item = P[index];
+    const qty = cart[index];
+    const price = item[2] * qty;
+    total += price;
+
+    html += `
+      <div class="cart-item">
+        <span>${item[0]} × ${qty}</span>
+        <strong>₩${price.toLocaleString()}</strong>
+      </div>
+    `;
+  });
+
+  if (total === 0) {
+    html += "<p>장바구니가 비어 있습니다.</p>";
+  }
+
+  html += `<h3>합계 ₩${total.toLocaleString()}</h3>`;
+  cartBox.innerHTML = html;
+}
+
+function submitOrder() {
+  const name = document.getElementById("name")?.value.trim();
+  const phone = document.getElementById("phone")?.value.trim();
+  const address = document.getElementById("address")?.value.trim();
+
+  if (Object.keys(cart).length === 0) {
+    alert("상품을 먼저 장바구니에 담아주세요.");
+    return;
+  }
+
+  if (!name || !phone || !address) {
+    alert("이름, 전화번호, 주소/요청사항을 입력해주세요.");
+    return;
+  }
+
+ 
