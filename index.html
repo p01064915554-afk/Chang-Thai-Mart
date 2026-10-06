@@ -1,1 +1,148 @@
-<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chang Thai Mart</title><link rel="stylesheet" href="style.css"></head><body><header><h1>🇹🇭 Chang Thai Mart</h1><button id="lang">ไทย</button></header><main><div class="hero"><h2 id="welcome">창타이마트</h2><p id="sub">태국 식품을 편리하게 주문하세요</p></div><h2 id="pt">상품</h2><div id="products" class="grid"></div><section><h2 id="ct">장바구니</h2><div id="cart"></div><h3><span id="tt">합계</span> <span id="total">₩0</span></h3></section><section><h2 id="ot">주문하기</h2><input id="name" placeholder="이름"><input id="phone" placeholder="전화번호"><textarea id="address" placeholder="주소 / 요청사항"></textarea><button id="order">주문 접수</button><p id="msg"></p></section></main><script src="config.js"></script><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chang Thai Mart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>🇹🇭 Chang Thai Mart</h1>
+  <button id="langBtn" onclick="changeLanguage()">ไทย</button>
+</header>
+
+<section class="hero">
+  <h2 id="storeTitle">창타이마트</h2>
+  <p id="storeText">태국 식품을 편리하게 주문하세요</p>
+</section>
+
+<section>
+  <h2 id="productTitle">상품</h2>
+
+  <div class="products">
+
+    <div class="product">
+      <div class="product-img">🍚</div>
+      <h3 class="ko">태국 자스민쌀</h3>
+      <h3 class="th" style="display:none;">ข้าวหอมมะลิ</h3>
+      <p>₩12,900</p>
+      <button onclick="addCart(0)" class="ko">담기</button>
+      <button onclick="addCart(0)" class="th" style="display:none;">ใส่ตะกร้า</button>
+    </div>
+
+    <div class="product">
+      <div class="product-img">🍜</div>
+      <h3 class="ko">똠얌 라면</h3>
+      <h3 class="th" style="display:none;">บะหมี่ต้มยำ</h3>
+      <p>₩1,500</p>
+      <button onclick="addCart(1)" class="ko">담기</button>
+      <button onclick="addCart(1)" class="th" style="display:none;">ใส่ตะกร้า</button>
+    </div>
+
+    <div class="product">
+      <div class="product-img">🌶️</div>
+      <h3 class="ko">태국 고추</h3>
+      <h3 class="th" style="display:none;">พริกไทย</h3>
+      <p>₩3,500</p>
+      <button onclick="addCart(2)" class="ko">담기</button>
+      <button onclick="addCart(2)" class="th" style="display:none;">ใส่ตะกร้า</button>
+    </div>
+
+    <div class="product">
+      <div class="product-img">🥥</div>
+      <h3 class="ko">코코넛</h3>
+      <h3 class="th" style="display:none;">มะพร้าว</h3>
+      <p>₩2,900</p>
+      <button onclick="addCart(3)" class="ko">담기</button>
+      <button onclick="addCart(3)" class="th" style="display:none;">ใส่ตะกร้า</button>
+    </div>
+
+  </div>
+</section>
+
+<section class="cart-section">
+  <div id="cart">
+    <h2>장바구니</h2>
+    <p>장바구니가 비어 있습니다.</p>
+    <h3>합계 ₩0</h3>
+  </div>
+</section>
+
+<section class="order-section">
+  <h2 id="orderTitle">주문하기</h2>
+
+  <input
+    type="text"
+    id="name"
+    placeholder="이름"
+  >
+
+  <input
+    type="tel"
+    id="phone"
+    placeholder="전화번호"
+  >
+
+  <textarea
+    id="address"
+    placeholder="주소 / 요청사항"
+  ></textarea>
+
+  <button onclick="submitOrder()" id="orderBtn">
+    주문 접수
+  </button>
+</section>
+
+<script src="app.js"></script>
+
+<script>
+let thaiMode = false;
+
+function changeLanguage() {
+  thaiMode = !thaiMode;
+
+  const ko = document.querySelectorAll(".ko");
+  const th = document.querySelectorAll(".th");
+
+  ko.forEach(el => {
+    el.style.display = thaiMode ? "none" : "";
+  });
+
+  th.forEach(el => {
+    el.style.display = thaiMode ? "" : "none";
+  });
+
+  document.getElementById("langBtn").innerText =
+    thaiMode ? "한국어" : "ไทย";
+
+  document.getElementById("storeTitle").innerText =
+    thaiMode ? "ช้างไทยมาร์ท" : "창타이마트";
+
+  document.getElementById("storeText").innerText =
+    thaiMode ? "สั่งซื้อสินค้าไทยได้ง่ายๆ" : "태국 식품을 편리하게 주문하세요";
+
+  document.getElementById("productTitle").innerText =
+    thaiMode ? "สินค้า" : "상품";
+
+  document.getElementById("orderTitle").innerText =
+    thaiMode ? "สั่งซื้อ" : "주문하기";
+
+  document.getElementById("name").placeholder =
+    thaiMode ? "ชื่อ" : "이름";
+
+  document.getElementById("phone").placeholder =
+    thaiMode ? "เบอร์โทรศัพท์" : "전화번호";
+
+  document.getElementById("address").placeholder =
+    thaiMode ? "ที่อยู่ / คำขอเพิ่มเติม" : "주소 / 요청사항";
+
+  document.getElementById("orderBtn").innerText =
+    thaiMode ? "ยืนยันคำสั่งซื้อ" : "주문 접수";
+}
+</script>
+
+</body>
+</html>
