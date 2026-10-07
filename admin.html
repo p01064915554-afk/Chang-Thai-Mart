@@ -187,7 +187,14 @@ document.getElementById("todaySales").textContent = "₩" + todaySales.toLocaleS
         <td>${order.products || ""}</td>
         <td>${order.quantity || ""}</td>
         <td>₩${Number(order.total || 0).toLocaleString()}</td>
-        <td>${order.status || ""}</td>
+        <td>
+  <select onchange="updateOrderStatus('${order.orderNumber}', this.value)">
+    <option value="신규주문" ${order.status === "신규주문" ? "selected" : ""}>신규주문</option>
+    <option value="주문확인" ${order.status === "주문확인" ? "selected" : ""}>주문확인</option>
+    <option value="배송중" ${order.status === "배송중" ? "selected" : ""}>배송중</option>
+    <option value="배송완료" ${order.status === "배송완료" ? "selected" : ""}>배송완료</option>
+  </select>
+</td>
       `;
 
       tbody.appendChild(tr);
@@ -197,6 +204,9 @@ document.getElementById("todaySales").textContent = "₩" + todaySales.toLocaleS
   }
 }
 
+async function updateOrderStatus(orderNumber, status) {
+  alert("주문번호 " + orderNumber + "의 상태를 " + status + "로 변경합니다.");
+}  
 loadOrders();
 </script>
   
