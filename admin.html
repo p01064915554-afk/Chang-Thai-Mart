@@ -162,7 +162,7 @@ async function loadOrders() {
     const response = await fetch(ORDER_API + "?action=getOrders");
     const orders = await response.json();
 
-   const tbody = document.getElementById("ordersBody").parentElement;
+   const tbody = document.getElementById("ordersBody").parentElement.parentElement;
     tbody.innerHTML = "";
 
     orders.forEach(order => {
