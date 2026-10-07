@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Chang Thai Mart</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -16,18 +19,17 @@ body{
 }
 
 header{
-  background:white;
-  padding:28px 18px;
+  background:#ffffff;
+  padding:25px 18px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:10px;
+  align-items:center;
+  border-bottom:1px solid #eee;
 }
 
 header h1{
   margin:0;
   font-size:30px;
-  white-space:nowrap;
 }
 
 button{
@@ -39,7 +41,7 @@ button{
 #langBtn{
   background:#16833d;
   color:white;
-  padding:14px 18px;
+  padding:13px 20px;
   border-radius:18px;
   font-size:17px;
 }
@@ -58,7 +60,7 @@ main{
 
 .hero h2{
   font-size:30px;
-  margin:0 0 20px;
+  margin:0 0 12px;
 }
 
 .hero p{
@@ -74,40 +76,50 @@ main{
 }
 
 .section h2{
-  font-size:29px;
-  margin:0 0 25px;
+  font-size:28px;
+  margin:0 0 22px;
 }
 
 .products{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:15px;
+  gap:18px;
 }
 
 .product{
-  border:1px solid #eee;
+  border:1px solid #e5e5e5;
   border-radius:20px;
-  padding:15px;
+  overflow:hidden;
+  background:#fff;
 }
 
-.emoji{
-  height:100px;
-  background:#f4f3ef;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:48px;
+.product-image{
+  width:100%;
+  height:250px;
+  object-fit:contain;
+  background:#f7f7f7;
+  display:block;
+}
+
+.product-info{
+  padding:16px;
 }
 
 .product h3{
-  min-height:48px;
-  margin:14px 0 8px;
+  margin:0 0 8px;
   font-size:20px;
+  line-height:1.4;
+}
+
+.product-detail{
+  color:#666;
+  margin-bottom:10px;
+  font-size:16px;
 }
 
 .price{
-  font-size:20px;
+  font-size:22px;
+  font-weight:bold;
   margin-bottom:14px;
 }
 
@@ -115,8 +127,8 @@ main{
   width:100%;
   background:#16833d;
   color:white;
-  padding:14px 8px;
-  border-radius:15px;
+  padding:14px;
+  border-radius:14px;
   font-size:18px;
 }
 
@@ -125,7 +137,7 @@ main{
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  padding:13px 0;
+  padding:15px 0;
   border-bottom:1px solid #eee;
 }
 
@@ -136,12 +148,12 @@ main{
 .controls{
   display:flex;
   align-items:center;
-  gap:7px;
+  gap:8px;
 }
 
 .smallBtn{
-  width:34px;
-  height:34px;
+  width:35px;
+  height:35px;
   border-radius:9px;
   background:#16833d;
   color:white;
@@ -149,26 +161,28 @@ main{
 }
 
 .cart-price{
-  font-weight:bold;
-  min-width:85px;
+  min-width:100px;
   text-align:right;
+  font-weight:bold;
 }
 
 .total{
-  margin-top:22px;
-  font-size:24px;
+  margin-top:20px;
+  font-size:25px;
   font-weight:bold;
 }
 
 .empty{
-  font-size:18px;
+  font-size:17px;
+  color:#666;
 }
 
-input,textarea{
+input,
+textarea{
   width:100%;
   border:1px solid #ddd;
-  border-radius:16px;
-  padding:17px;
+  border-radius:15px;
+  padding:16px;
   font-size:17px;
   margin-bottom:13px;
 }
@@ -189,16 +203,28 @@ textarea{
 
 .lineInfo{
   text-align:center;
-  margin-top:13px;
-  font-size:15px;
-  color:#555;
+  color:#666;
+  margin-top:12px;
+  font-size:14px;
 }
 
-@media(max-width:480px){
-  header h1{font-size:25px}
-  .products{grid-template-columns:repeat(2,1fr)}
-  .product{padding:10px}
-  .product h3{font-size:17px}
+@media(max-width:600px){
+
+  header h1{
+    font-size:23px;
+  }
+
+  .products{
+    grid-template-columns:1fr;
+  }
+
+  .product-image{
+    height:260px;
+  }
+
+  .cart-row{
+    flex-wrap:wrap;
+  }
 }
 </style>
 </head>
@@ -206,413 +232,539 @@ textarea{
 <body>
 
 <header>
-  <h1>🇹🇭 Chang Thai Mart</h1>
-  <button id="langBtn" onclick="toggleLanguage()">ไทย</button>
+
+<h1>🇹🇭 Chang Thai Mart</h1>
+
+<button
+id="langBtn"
+onclick="toggleLanguage()">
+ไทย
+</button>
+
 </header>
+
 
 <main>
 
 <section class="hero">
-  <h2 id="storeTitle">창타이마트</h2>
-  <p id="storeText">태국 식품을 편리하게 주문하세요</p>
+
+<h2 id="storeTitle">
+창타이마트
+</h2>
+
+<p id="storeText">
+태국 식품을 편리하게 주문하세요
+</p>
+
 </section>
 
-<section class="section">
-  <h2 id="productTitle">상품</h2>
-  <div class="products" id="products"></div>
-</section>
-
-<section class="section">
-  <h2 id="cartTitle">장바구니</h2>
-  <div id="cart"></div>
-</section>
 
 <section class="section">
 
-  <h2 id="orderTitle">주문하기</h2>
+<h2 id="productTitle">
+상품
+</h2>
 
-  <input id="name" placeholder="이름">
+<div
+class="products"
+id="products">
+</div>
 
-  <input
-    id="phone"
-    type="tel"
-    placeholder="전화번호"
-  >
+</section>
 
-  <textarea
-    id="address"
-    placeholder="주소 / 요청사항"
-  ></textarea>
 
-  <button
-    class="orderBtn"
-    id="orderBtn"
-    onclick="submitOrder()"
-  >
-    LINE으로 주문하기
-  </button>
+<section class="section">
 
-  <div class="lineInfo" id="lineInfo">
-    LINE에서 changthaimart를 선택하여 주문서를 보내주세요.
-  </div>
+<h2 id="cartTitle">
+장바구니
+</h2>
+
+<div id="cart"></div>
+
+</section>
+
+
+<section class="section">
+
+<h2 id="orderTitle">
+주문하기
+</h2>
+
+<input
+id="name"
+placeholder="이름">
+
+<input
+id="phone"
+type="tel"
+placeholder="전화번호">
+
+<textarea
+id="address"
+placeholder="주소 / 요청사항">
+</textarea>
+
+<button
+class="orderBtn"
+id="orderBtn"
+onclick="submitOrder()">
+LINE으로 주문하기
+</button>
+
+<div
+class="lineInfo"
+id="lineInfo">
+
+LINE에서 changthaimart를 선택하여 주문서를 보내주세요.
+
+</div>
 
 </section>
 
 </main>
 
+
 <script>
 
-const LINE_ID = "changthaimart";
+const LINE_ID="changthaimart";
 
-const products = [
 
-  {
-    ko:"태국 자스민쌀",
-    th:"ข้าวหอมมะลิ",
-    price:12900,
-    emoji:"🍚"
-  },
+const products=[
 
-  {
-    ko:"똠얌 라면",
-    th:"บะหมี่ต้มยำ",
-    price:1500,
-    emoji:"🍜"
-  },
+{
+  ko:"M-150 에너지 드링크",
+  th:"เครื่องดื่มชูกำลัง M-150",
+  detailKo:"50개",
+  detailTh:"50 ขวด",
+  price:60000,
+  image:"29094.jpg"
+},
 
-  {
-    ko:"태국 고추",
-    th:"พริกไทย",
-    price:3500,
-    emoji:"🌶️"
-  },
-
-  {
-    ko:"코코넛",
-    th:"มะพร้าว",
-    price:2900,
-    emoji:"🥥"
-  }
+{
+  ko:"락타소이 오리지널 두유 250ml",
+  th:"แลคตาซอย ออริจินัล 250 มล.",
+  detailKo:"36개",
+  detailTh:"36 กล่อง",
+  price:32000,
+  image:"29095.jpg"
+}
 
 ];
 
+
 let language="ko";
+
 let cart={};
+
 
 const text={
 
 ko:{
-  button:"ไทย",
-  store:"창타이마트",
-  description:"태국 식품을 편리하게 주문하세요",
-  products:"상품",
-  add:"담기",
-  cart:"장바구니",
-  empty:"장바구니가 비어 있습니다.",
-  total:"합계",
-  order:"주문하기",
-  name:"이름",
-  phone:"전화번호",
-  address:"주소 / 요청사항",
-  submit:"LINE으로 주문하기",
-  info:"LINE에서 changthaimart를 선택하여 주문서를 보내주세요.",
-  emptyAlert:"상품을 먼저 장바구니에 담아주세요.",
-  formAlert:"이름, 전화번호, 주소/요청사항을 입력해주세요."
+ button:"ไทย",
+ store:"창타이마트",
+ description:"태국 식품을 편리하게 주문하세요",
+ products:"상품",
+ add:"장바구니 담기",
+ cart:"장바구니",
+ empty:"장바구니가 비어 있습니다.",
+ total:"합계",
+ order:"주문하기",
+ name:"이름",
+ phone:"전화번호",
+ address:"주소 / 요청사항",
+ submit:"LINE으로 주문하기",
+ info:"LINE에서 changthaimart를 선택하여 주문서를 보내주세요.",
+ emptyAlert:"상품을 먼저 장바구니에 담아주세요.",
+ formAlert:"이름, 전화번호, 주소/요청사항을 입력해주세요."
 },
 
 th:{
-  button:"한국어",
-  store:"ช้างไทยมาร์ท",
-  description:"สั่งซื้อสินค้าไทยได้ง่ายๆ",
-  products:"สินค้า",
-  add:"ใส่ตะกร้า",
-  cart:"ตะกร้าสินค้า",
-  empty:"ไม่มีสินค้าในตะกร้า",
-  total:"รวม",
-  order:"สั่งซื้อ",
-  name:"ชื่อ",
-  phone:"เบอร์โทรศัพท์",
-  address:"ที่อยู่ / คำขอเพิ่มเติม",
-  submit:"สั่งซื้อทาง LINE",
-  info:"กรุณาเลือก changthaimart ใน LINE แล้วส่งรายการสั่งซื้อ",
-  emptyAlert:"กรุณาใส่สินค้าในตะกร้าก่อน",
-  formAlert:"กรุณากรอกชื่อ เบอร์โทร และที่อยู่"
+ button:"한국어",
+ store:"ช้างไทยมาร์ท",
+ description:"สั่งซื้อสินค้าไทยได้ง่ายๆ",
+ products:"สินค้า",
+ add:"ใส่ตะกร้า",
+ cart:"ตะกร้าสินค้า",
+ empty:"ไม่มีสินค้าในตะกร้า",
+ total:"รวม",
+ order:"สั่งซื้อ",
+ name:"ชื่อ",
+ phone:"เบอร์โทรศัพท์",
+ address:"ที่อยู่ / คำขอเพิ่มเติม",
+ submit:"สั่งซื้อทาง LINE",
+ info:"กรุณาเลือก changthaimart ใน LINE แล้วส่งรายการสั่งซื้อ",
+ emptyAlert:"กรุณาใส่สินค้าในตะกร้าก่อน",
+ formAlert:"กรุณากรอกชื่อ เบอร์โทร และที่อยู่"
 }
 
 };
 
+
 function money(number){
-  return "₩"+number.toLocaleString("ko-KR");
+
+return "₩"+
+number.toLocaleString("ko-KR");
+
 }
+
 
 function renderProducts(){
 
-  const box=document.getElementById("products");
+const box=
+document.getElementById("products");
 
-  box.innerHTML="";
+box.innerHTML="";
 
-  products.forEach((p,index)=>{
 
-    box.innerHTML+=`
+products.forEach((p,index)=>{
 
-    <div class="product">
+const detail=
+language==="ko"
+?p.detailKo
+:p.detailTh;
 
-      <div class="emoji">
-        ${p.emoji}
-      </div>
 
-      <h3>
-        ${p[language]}
-      </h3>
+box.innerHTML+=`
 
-      <div class="price">
-        ${money(p.price)}
-      </div>
+<div class="product">
 
-      <button
-        class="addBtn"
-        onclick="addCart(${index})"
-      >
-        ${text[language].add}
-      </button>
+<img
+class="product-image"
+src="${p.image}"
+alt="${p[language]}">
 
-    </div>
+<div class="product-info">
 
-    `;
+<h3>
+${p[language]}
+</h3>
 
-  });
+<div class="product-detail">
+${detail}
+</div>
+
+<div class="price">
+${money(p.price)}
+</div>
+
+<button
+class="addBtn"
+onclick="addCart(${index})">
+
+${text[language].add}
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
 
 }
+
 
 function addCart(index){
 
-  cart[index]=(cart[index]||0)+1;
+cart[index]=
+(cart[index]||0)+1;
 
-  renderCart();
+renderCart();
 
 }
+
 
 function decrease(index){
 
-  if(!cart[index]) return;
+if(!cart[index]) return;
 
-  cart[index]--;
+cart[index]--;
 
-  if(cart[index]<=0){
-    delete cart[index];
-  }
+if(cart[index]<=0){
 
-  renderCart();
+delete cart[index];
 
 }
+
+renderCart();
+
+}
+
 
 function increase(index){
 
-  cart[index]=(cart[index]||0)+1;
+cart[index]=
+(cart[index]||0)+1;
 
-  renderCart();
+renderCart();
 
 }
+
 
 function renderCart(){
 
-  const box=document.getElementById("cart");
+const box=
+document.getElementById("cart");
 
-  const keys=Object.keys(cart);
+const keys=
+Object.keys(cart);
 
-  if(keys.length===0){
 
-    box.innerHTML=`
+if(keys.length===0){
 
-      <div class="empty">
-        ${text[language].empty}
-      </div>
+box.innerHTML=`
 
-      <div class="total">
-        ${text[language].total} ₩0
-      </div>
+<div class="empty">
 
-    `;
+${text[language].empty}
 
-    return;
+</div>
 
-  }
+<div class="total">
 
-  let html="";
-  let total=0;
+${text[language].total} ₩0
 
-  keys.forEach(key=>{
+</div>
 
-    const index=Number(key);
+`;
 
-    const p=products[index];
-
-    const qty=cart[index];
-
-    const subtotal=p.price*qty;
-
-    total+=subtotal;
-
-    html+=`
-
-      <div class="cart-row">
-
-        <div class="cart-name">
-          ${p[language]}
-        </div>
-
-        <div class="controls">
-
-          <button
-            class="smallBtn"
-            onclick="decrease(${index})"
-          >
-            −
-          </button>
-
-          <strong>
-            ${qty}
-          </strong>
-
-          <button
-            class="smallBtn"
-            onclick="increase(${index})"
-          >
-            +
-          </button>
-
-        </div>
-
-        <div class="cart-price">
-          ${money(subtotal)}
-        </div>
-
-      </div>
-
-    `;
-
-  });
-
-  html+=`
-
-    <div class="total">
-      ${text[language].total}
-      ${money(total)}
-    </div>
-
-  `;
-
-  box.innerHTML=html;
+return;
 
 }
+
+
+let html="";
+
+let total=0;
+
+
+keys.forEach(key=>{
+
+const index=
+Number(key);
+
+const p=
+products[index];
+
+const qty=
+cart[index];
+
+const subtotal=
+p.price*qty;
+
+total+=subtotal;
+
+
+html+=`
+
+<div class="cart-row">
+
+<div class="cart-name">
+
+${p[language]}
+
+</div>
+
+
+<div class="controls">
+
+<button
+class="smallBtn"
+onclick="decrease(${index})">
+
+−
+
+</button>
+
+<strong>
+${qty}
+</strong>
+
+<button
+class="smallBtn"
+onclick="increase(${index})">
+
++
+
+</button>
+
+</div>
+
+
+<div class="cart-price">
+
+${money(subtotal)}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+html+=`
+
+<div class="total">
+
+${text[language].total}
+
+${money(total)}
+
+</div>
+
+`;
+
+
+box.innerHTML=html;
+
+}
+
 
 function toggleLanguage(){
 
-  language=
-    language==="ko"
-    ? "th"
-    : "ko";
+language=
+language==="ko"
+?"th"
+:"ko";
 
-  document.documentElement.lang=
-    language==="ko"
-    ? "ko"
-    : "th";
+document.documentElement.lang=
+language==="ko"
+?"ko"
+:"th";
 
-  updateLanguage();
+updateLanguage();
 
 }
+
 
 function updateLanguage(){
 
-  const t=text[language];
+const t=
+text[language];
 
-  document.getElementById("langBtn").textContent=t.button;
+document.getElementById("langBtn").textContent=
+t.button;
 
-  document.getElementById("storeTitle").textContent=t.store;
+document.getElementById("storeTitle").textContent=
+t.store;
 
-  document.getElementById("storeText").textContent=t.description;
+document.getElementById("storeText").textContent=
+t.description;
 
-  document.getElementById("productTitle").textContent=t.products;
+document.getElementById("productTitle").textContent=
+t.products;
 
-  document.getElementById("cartTitle").textContent=t.cart;
+document.getElementById("cartTitle").textContent=
+t.cart;
 
-  document.getElementById("orderTitle").textContent=t.order;
+document.getElementById("orderTitle").textContent=
+t.order;
 
-  document.getElementById("name").placeholder=t.name;
+document.getElementById("name").placeholder=
+t.name;
 
-  document.getElementById("phone").placeholder=t.phone;
+document.getElementById("phone").placeholder=
+t.phone;
 
-  document.getElementById("address").placeholder=t.address;
+document.getElementById("address").placeholder=
+t.address;
 
-  document.getElementById("orderBtn").textContent=t.submit;
+document.getElementById("orderBtn").textContent=
+t.submit;
 
-  document.getElementById("lineInfo").textContent=t.info;
+document.getElementById("lineInfo").textContent=
+t.info;
 
-  renderProducts();
+renderProducts();
 
-  renderCart();
+renderCart();
 
 }
 
+
 function submitOrder(){
 
-  const t=text[language];
+const t=
+text[language];
 
-  const name=
-    document.getElementById("name").value.trim();
+const name=
+document
+.getElementById("name")
+.value
+.trim();
 
-  const phone=
-    document.getElementById("phone").value.trim();
+const phone=
+document
+.getElementById("phone")
+.value
+.trim();
 
-  const address=
-    document.getElementById("address").value.trim();
+const address=
+document
+.getElementById("address")
+.value
+.trim();
 
-  if(Object.keys(cart).length===0){
 
-    alert(t.emptyAlert);
+if(Object.keys(cart).length===0){
 
-    return;
+alert(t.emptyAlert);
 
-  }
+return;
 
-  if(!name || !phone || !address){
+}
 
-    alert(t.formAlert);
 
-    return;
+if(!name || !phone || !address){
 
-  }
+alert(t.formAlert);
 
-  let total=0;
+return;
 
-  let items="";
+}
 
-  Object.keys(cart).forEach(key=>{
 
-    const index=Number(key);
+let total=0;
 
-    const p=products[index];
+let items="";
 
-    const qty=cart[index];
 
-    const subtotal=p.price*qty;
+Object.keys(cart).forEach(key=>{
 
-    total+=subtotal;
+const index=
+Number(key);
 
-    items+=
-      "• "+
-      p.ko+
-      " / "+
-      p.th+
-      " x "+
-      qty+
-      " = "+
-      money(subtotal)+
-      "\n";
+const p=
+products[index];
 
-  });
+const qty=
+cart[index];
 
-  const orderMessage=
+const subtotal=
+p.price*qty;
+
+total+=subtotal;
+
+
+items+=
+"• "+
+p.ko+
+" / "+
+p.th+
+" x "+
+qty+
+" = "+
+money(subtotal)+
+"\n";
+
+});
+
+
+const orderMessage=
 
 `🛒 Chang Thai Mart 주문
 
@@ -638,13 +790,25 @@ ${address}
 
 LINE ID: ${LINE_ID}`;
 
-  const lineURL=
-    "https://line.me/R/share?text="+
-    encodeURIComponent(orderMessage);
 
-  window.location.href=lineURL;
+const lineURL=
+
+"https://line.me/R/share?text="+
+encodeURIComponent(orderMessage);
+
+
+/* 주문 후 장바구니 초기화 */
+
+cart={};
+
+renderCart();
+
+
+window.location.href=
+lineURL;
 
 }
+
 
 updateLanguage();
 
