@@ -154,6 +154,21 @@
   </div>
 
 </div>
+<script>
+const ORDER_API = "https://script.google.com/macros/s/AKfycbxUbqudSHEM8-jtcQUTLn4847WyZxCrwb5fUCyeAXDHwXxS3rG33D7pUAbm184cVLeClQ/exec";
 
+async function loadOrders() {
+  try {
+    const response = await fetch(ORDER_API + "?action=getOrders");
+    const orders = await response.json();
+    console.log(orders);
+  } catch (error) {
+    console.error("주문 불러오기 오류:", error);
+  }
+}
+
+loadOrders();
+</script>
+  
 </body>
 </html>
