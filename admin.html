@@ -143,7 +143,7 @@
 
       <tbody>
         <tr>
-          <td colspan="8">
+          <td colspan="8" id="ordersBody">
             Google Sheets 주문 데이터를 연결할 준비가 되었습니다.
           </td>
         </tr>
@@ -161,7 +161,26 @@ async function loadOrders() {
   try {
     const response = await fetch(ORDER_API + "?action=getOrders");
     const orders = await response.json();
-    console.log(orders);
+
+    const tbody = document.querySelector("table tbody");
+    tbody.innerHTML = "";
+
+    orders.forEach(order => {
+      const tr = document.createElement("tr");
+
+      tr.innerHTML = `
+        <td>${order.date || ""}</td>
+        <td>${order.orderNumber || ""}</td>
+        <td>${order.name || ""}</td>
+        <td>${order.phone || ""}</td>
+        <td>${order.products || ""}</td>
+        <td>${order.quantity || ""}</td>
+        <td>₩${Number(order.total || 0).toLocaleString()}</td>
+        <td>${order.status || ""}</td>
+      `;
+
+      tbody.appendChild(tr);
+    });
   } catch (error) {
     console.error("주문 불러오기 오류:", error);
   }
