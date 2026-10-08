@@ -183,6 +183,8 @@ async function adminLogin() {
   }
 
   adminPassword = password;
+document.getElementById("loginScreen").style.display = "none";
+document.getElementById("adminContent").style.display = "block";
   await loadOrders();
 } 
 const ORDER_API = "https://script.google.com/macros/s/AKfycbxUbqudSHEM8-jtcQUTLn4847WyZxCrwb5fUCyeAXDHwXxS3rG33D7pUAbm184cVLeClQ/exec";
