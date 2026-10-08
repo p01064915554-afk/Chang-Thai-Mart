@@ -110,6 +110,9 @@
 
 <div id="adminContent" style="display:none;">
 <header>
+ 
+<button onclick="adminLogout()" style="float:right;background:white;color:#07883f;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;">로그아웃</button>
+
   <h1>🛒 Chang Thai Mart 관리자</h1>
 </header>
 
@@ -259,7 +262,15 @@ async function updateOrderStatus(orderNumber, status) {
   }
 }
 
-</script>
+function adminLogout() {
+  adminPassword = "";
+  document.getElementById("loginPassword").value = "";
+  document.getElementById("adminContent").style.display = "none";
+  document.getElementById("loginScreen").style.display = "block";
+}
+</script>  
+
+
 </div>
 </body>
 </html>
