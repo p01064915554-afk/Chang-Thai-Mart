@@ -153,13 +153,13 @@
   <td>M-150 에너지드링크 50개입</td>
   <td>₩60,000</td>
   <td>미설정</td>
-  <td>준비 중</td>
+<td><button onclick="editProduct(0)">수정</button></td>
 </tr>
 <tr>
   <td>락타소이 오리지널 250ml 36개입</td>
   <td>₩32,000</td>
   <td>미설정</td>
-  <td>준비 중</td>
+<td><button onclick="editProduct(1)">수정</button></td>
 </tr>
   </tbody>
 </table> 
@@ -297,8 +297,45 @@ function adminLogout() {
   document.getElementById("adminContent").style.display = "none";
   document.getElementById("loginScreen").style.display = "block";
 }
-</script>  
 
+function editProduct(index) {
+  const products = [
+    { name: "M-150 에너지드링크 50개입", price: 60000 },
+    { name: "락타소이 오리지널 250ml 36개입", price: 32000 }
+  ];
+
+  const product = products[index];
+
+  const price = prompt(
+    product.name + "\n새 판매가격을 입력하세요.",
+    product.price
+  );
+
+  if (price === null) return;
+
+  const stock = prompt(
+    product.name + "\n재고 수량을 입력하세요.",
+    "0"
+  );
+
+  if (stock === null) return;
+
+  if (price.trim() === "" || stock.trim() === "" ||
+      !Number.isFinite(Number(price)) ||
+      !Number.isInteger(Number(stock)) ||
+      Number(price) < 0 || Number(stock) < 0) {
+    alert("가격과 재고를 올바른 숫자로 입력해 주세요.");
+    return;
+  }
+
+  alert(
+    product.name +
+    "\n입력 가격: " + Number(price).toLocaleString() + "원" +
+    "\n입력 재고: " + stock + "개" +
+    "\n\n현재는 입력 테스트 단계입니다. 실제 상품 정보에는 아직 저장되지 않습니다."
+  );
+}  
+</script>
 
 </div>
 </body>
