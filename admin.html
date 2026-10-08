@@ -155,11 +155,30 @@
 
 </div>
 <script>
+ let adminPassword = "";
+
+async function adminLogin() {
+  const password = prompt("관리자 비밀번호를 입력하세요.");
+  if (!password) return;
+
+  const response = await fetch(
+    ORDER_API + "?action=getOrders&password=" + encodeURIComponent(password)
+  );
+  const result = await response.json();
+
+  if (result.error) {
+    alert("비밀번호가 올바르지 않습니다.");
+    return;
+  }
+
+  adminPassword = password;
+  await loadOrders();
+} 
 const ORDER_API = "https://script.google.com/macros/s/AKfycbxUbqudSHEM8-jtcQUTLn4847WyZxCrwb5fUCyeAXDHwXxS3rG33D7pUAbm184cVLeClQ/exec";
 
 async function loadOrders() {
   try {
-    const response = await fetch(ORDER_API + "?action=getOrders");
+    const response = await fetch(ORDER_API + "?action=getOrders&password=" + encodeURIComponent(adminPassword));
     const orders = await response.json();
    const validOrders = orders.filter(order => order.orderNumber && order.orderNumber.startsWith("CTM-"));
 const newOrders = validOrders.filter(order => order.status === "신규주문");
@@ -207,6 +226,7 @@ document.getElementById("todaySales").textContent = "₩" + todaySales.toLocaleS
 async function updateOrderStatus(orderNumber, status) {
   try {
     const params = new URLSearchParams({
+     password: adminPassword, 
       action: "updateStatus",
       orderNumber: orderNumber,
       status: status
