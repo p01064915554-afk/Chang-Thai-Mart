@@ -219,7 +219,7 @@ document.getElementById("loginScreen").style.display = "none";
 document.getElementById("adminContent").style.display = "block";
   await loadOrders();
 } 
-const ORDER_API = "https://script.google.com/macros/s/AKfycbxUbqudSHEM8-jtcQUTLn4847WyZxCrwb5fUCyeAXDHwXxS3rG33D7pUAbm184cVLeClQ/exec";
+async function editProduct(index) = "https://script.google.com/macros/s/AKfycbxUbqudSHEM8-jtcQUTLn4847WyZxCrwb5fUCyeAXDHwXxS3rG33D7pUAbm184cVLeClQ/exec";
 
 async function loadOrders() {
   try {
@@ -345,6 +345,42 @@ async function editProduct(index) {
     alert("저장 요청 중 오류가 발생했습니다.");
   }
 }
+
+async function loadProducts() {
+  try {
+    const url = ORDER_API
+      + "?action=getProducts&password="
+      + encodeURIComponent(adminPassword);
+
+    const response = await fetch(url);
+    const result = await response.json();
+
+    if (!result.success) {
+      console.error("상품 조회 실패:", result);
+      return;
+    }
+
+
+const rows = document.querySelectorAll(
+  "#productList tr"
+);
+
+
+    result.products.forEach((product, index) => {
+      const row = rows[index];
+      if (!row) return;
+
+      row.cells[1].textContent =
+        "₩" + Number(product.price).toLocaleString("ko-KR");
+
+      row.cells[2].textContent =
+        Number(product.stock).toLocaleString("ko-KR") + "개";
+    });
+  } catch (error) {
+    console.error("상품 정보를 불러오지 못했습니다.", error);
+  }
+}
+  
 </script>
 
 </div>
