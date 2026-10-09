@@ -399,7 +399,36 @@ const rows = document.querySelectorAll(
     return;
   }
 let imageUrl = "";
-  const data = new URLSearchParams({
+if (imageFile) {
+  const reader = new FileReader();
+  const imageData = await new Promise((resolve, reject) => {
+    reader.onload = () => resolve(reader.result.split(",")[1]);
+    reader.onerror = () => reject(new Error("사진 읽기 실패"));
+    reader.readAsDataURL(imageFile);
+  });
+  const uploadData = new URLSearchParams({
+  action: "uploadProductImage",
+  password: adminPassword,
+  imageData: imageData,
+  fileName: imageFile.name,
+  mimeType: imageFile.type
+});
+
+const uploadResponse = await fetch(ORDER_API, {
+  method: "POST",
+  body: uploadData
+});
+
+const uploadResult = await uploadResponse.json();
+
+if (!uploadResult.success) {
+  alert(uploadResult.message || "사진 업로드에 실패했습니다.");
+  return;
+}
+
+imageUrl = uploadResult.imageUrl;
+}
+    const data = new URLSearchParams({
     action: "addProduct",
     password: adminPassword,
     name: name,
