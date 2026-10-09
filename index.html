@@ -328,7 +328,7 @@ LINE에서 changthaimart를 선택하여 주문서를 보내주세요.
 
 const LINE_ID="changthaimart";
 const ORDER_API="https://script.google.com/macros/s/AKfycbxUbqudSHEM8-jtcQUTLn4847WyZxCrwb5fUCyeAXDHwXxS3rG33D7pUAbm184cVLeClQ/exec";
-
+let productStock = [];
 const products=[
 
 {
@@ -407,7 +407,32 @@ number.toLocaleString("ko-KR");
 
 }
 
+async function loadProductStock() {
+  try {
+    const response = await fetch(
+      ORDER_API + "?action=getProducts"
+    );
+    const result = await response.json();
 
+    if (!result.success || !Array.isArray(result.products)) {
+      console.error("상품 정보 불러오기 실패", result);
+      return;
+    }
+
+    productStock = result.products;
+
+    productStock.forEach((item, index) => {
+      if (products[index]) {
+        products[index].price = Number(item.price);
+        products[index].stock = Number(item.stock);
+      }
+    });
+
+    renderProducts();
+  } catch (error) {
+    console.error("상품 정보 연결 오류", error);
+  }
+}
 function renderProducts(){
 
 const box=
@@ -856,7 +881,8 @@ if (isMobile) {
  
 
 updateLanguage();
-
+loadProductStock();
+  
 </script>
 
 </body>
