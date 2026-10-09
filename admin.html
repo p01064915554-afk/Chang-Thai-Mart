@@ -221,8 +221,7 @@ document.getElementById("adminContent").style.display = "block";
 await loadProducts();
   await loadOrders();
 }
-async function editProduct(index) {
-}
+
 async function loadOrders() {
   try {
     const response = await fetch(ORDER_API + "?action=getOrders&password=" + encodeURIComponent(adminPassword));
@@ -301,10 +300,7 @@ function adminLogout() {
 }
 
 async function editProduct(index) {
-  const products = [
-    { name: "M-150 에너지드링크 50개입", price: 60000 },
-    { name: "락타소이 오리지널 250ml 36개입", price: 32000 }
-  ];
+const products = window.currentProducts || [];
 
   const product = products[index];
   if (!product) return;
@@ -356,7 +352,7 @@ async function loadProducts() {
 
     const response = await fetch(url);
     const result = await response.json();
-
+window.currentProducts = result.products || [];
     if (!result.success) {
       console.error("상품 조회 실패:", result);
       return;
