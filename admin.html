@@ -139,7 +139,13 @@
   </div>
 <div class="orders" id="productManagement">
   <h2>📦 상품 관리</h2>
-<table>
+<div style="margin: 15px 0;">
+  <input id="newProductName" placeholder="상품명">
+  <input id="newProductPrice" type="number" placeholder="판매가격">
+  <input id="newProductStock" type="number" placeholder="재고수량">
+  <button onclick="addNewProduct()">➕ 상품 추가</button>
+</div>
+  <table>
   <thead>
     <tr>
       <th>상품명</th>
