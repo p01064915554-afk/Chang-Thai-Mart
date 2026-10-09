@@ -225,7 +225,7 @@ const password = document.getElementById("loginPassword").value;
   adminPassword = password;
 document.getElementById("loginScreen").style.display = "none";
 document.getElementById("adminContent").style.display = "block";
-await loadProducts();
+// await loadProducts();
   await loadOrders();
 }
 
@@ -428,7 +428,11 @@ if (!uploadResult.success) {
 
 imageUrl = uploadResult.imageUrl;
 }
-    const data = new URLSearchParams({
+   
+  }
+
+  const data = new URLSearchParams({
+    
     action: "addProduct",
     password: adminPassword,
     name: name,
