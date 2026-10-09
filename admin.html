@@ -380,8 +380,14 @@ const rows = document.querySelectorAll(
 
       row.cells[2].textContent =
         Number(product.stock).toLocaleString("ko-KR") + "개";
-    });
-  } catch (error) {
+
+ const deleteButton = document.createElement("button");
+deleteButton.textContent = "삭제";
+deleteButton.style.marginLeft = "8px";
+deleteButton.onclick = () => deleteProduct(product.index);
+row.cells[3].appendChild(deleteButton);
+});
+    } catch (error) {
     console.error("상품 정보를 불러오지 못했습니다.", error);
   }
 }
