@@ -418,8 +418,21 @@ async function loadProductStock() {
       console.error("상품 정보 불러오기 실패", result);
       return;
     }
-
-    productStock = result.products;
+productStock = result.products;
+    productStock.forEach((item, index) => {
+  if (index >= products.length) {
+    products.push({
+      ko: item.name,
+      th: item.name,
+      detailKo: "",
+      detailTh: "",
+      price: Number(item.price),
+      stock: Number(item.stock),
+      image: ""
+    });
+  }
+});
+   
 
     productStock.forEach((item, index) => {
       if (products[index]) {
