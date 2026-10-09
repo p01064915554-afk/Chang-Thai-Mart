@@ -384,7 +384,41 @@ const rows = document.querySelectorAll(
     console.error("상품 정보를 불러오지 못했습니다.", error);
   }
 }
-  
+async function addNewProduct() {
+  const name = document.getElementById("newProductName").value.trim();
+  const price = document.getElementById("newProductPrice").value;
+  const stock = document.getElementById("newProductStock").value;
+
+  if (!name || price === "" || stock === "" ||
+      !Number.isFinite(Number(price)) || Number(price) < 0 ||
+      !Number.isInteger(Number(stock)) || Number(stock) < 0) {
+    alert("상품명, 판매가격, 재고수량을 정확히 입력해 주세요.");
+    return;
+  }
+
+  const data = new URLSearchParams({
+    action: "addProduct",
+    password: adminPassword,
+    name: name,
+    price: price,
+    stock: stock
+  });
+
+  try {
+    await fetch(ORDER_API, {
+      method: "POST",
+      mode: "no-cors",
+      body: data
+    });
+
+    alert("상품 추가 요청을 보냈습니다. Google Sheets에서 확인해 주세요.");
+    document.getElementById("newProductName").value = "";
+    document.getElementById("newProductPrice").value = "";
+    document.getElementById("newProductStock").value = "";
+  } catch (error) {
+    alert("상품 추가 요청 중 오류가 발생했습니다.");
+  }
+}  
 </script>
 
 </div>
