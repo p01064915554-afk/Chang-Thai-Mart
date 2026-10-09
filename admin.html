@@ -429,9 +429,30 @@ if (!uploadResult.success) {
 imageUrl = uploadResult.imageUrl;
 }
 
-}
-  
-  
+
+const data = new URLSearchParams({
+  action: "addProduct",
+  password: adminPassword,
+  name: name,
+  price: price,
+  stock: stock
+});
+
+try {
+  await fetch(ORDER_API, {
+    method: "POST",
+    mode: "no-cors",
+    body: data
+  });
+
+  alert("상품 추가 요청을 보냈습니다. Google Sheets에서 확인해 주세요.");
+  document.getElementById("newProductName").value = "";
+  document.getElementById("newProductPrice").value = "";
+  document.getElementById("newProductStock").value = "";
+} catch (error) {
+  alert("상품 추가 중 오류가 발생했습니다.");
+}  
+}  
 
 </script>
 
