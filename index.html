@@ -473,7 +473,7 @@ ${money(p.price)}
 </div>
 
 <button
-class="addBtn"
+class="addBtn" style="${Number(p.stock) <= 0 ? 'background-color:#999;cursor:not-allowed;' : ''}"
 onclick="addCart(${index})" ${Number(p.stock) <= 0 ? 'disabled' : ''}>
 
 ${Number(p.stock) <= 0 ? (language === "ko" ? "품절" : "สินค้าหมด") : text[language].add}
