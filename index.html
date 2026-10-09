@@ -474,7 +474,7 @@ ${money(p.price)}
 
 <button
 class="addBtn"
-onclick="addCart(${index})">
+onclick="addCart(${index})" ${Number(p.stock) <= 0 ? 'disabled' : ''}>
 
 ${text[language].add}
 
