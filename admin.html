@@ -390,20 +390,22 @@ const rows = document.querySelectorAll(
   const name = document.getElementById("newProductName").value.trim();
   const price = document.getElementById("newProductPrice").value;
   const stock = document.getElementById("newProductStock").value;
-
+  const imageFile = document.getElementById("newProductImage").files[0];
+    
   if (!name || price === "" || stock === "" ||
       !Number.isFinite(Number(price)) || Number(price) < 0 ||
       !Number.isInteger(Number(stock)) || Number(stock) < 0) {
     alert("상품명, 판매가격, 재고수량을 정확히 입력해 주세요.");
     return;
   }
-
+let imageUrl = "";
   const data = new URLSearchParams({
     action: "addProduct",
     password: adminPassword,
     name: name,
     price: price,
-    stock: stock
+   stock: stock,
+imageUrl: imageUrl
   });
 
   try {
