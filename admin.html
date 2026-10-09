@@ -384,7 +384,8 @@ const rows = document.querySelectorAll(
     console.error("상품 정보를 불러오지 못했습니다.", error);
   }
 }
-async function addNewProduct() {
+}
+  async function addNewProduct() {
   const name = document.getElementById("newProductName").value.trim();
   const price = document.getElementById("newProductPrice").value;
   const stock = document.getElementById("newProductStock").value;
