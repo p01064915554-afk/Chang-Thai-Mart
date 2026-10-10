@@ -141,6 +141,7 @@
   <h2>📦 상품 관리</h2>
 <div style="margin: 15px 0;">
   <input id="newProductName" placeholder="상품명">
+  <input id="newProductNameTh" placeholder="태국어 상품명">
   <input id="newProductPrice" type="number" placeholder="판매가격">
   <input id="newProductStock" type="number" placeholder="재고수량">
   <input id="newProductImage" type="file" accept="image/*">
@@ -400,6 +401,7 @@ result.products.forEach((product) => {
   
   async function addNewProduct() {
   const name = document.getElementById("newProductName").value.trim();
+  const nameTh = document.getElementById("newProductNameTh").value.trim();    
   const price = document.getElementById("newProductPrice").value;
   const stock = document.getElementById("newProductStock").value;
   const imageFile = document.getElementById("newProductImage").files[0];
@@ -446,6 +448,7 @@ const data = new URLSearchParams({
   action: "addProduct",
   password: adminPassword,
   name: name,
+  nameTh: nameTh,
   price: price,
   stock: stock,
 imageUrl: imageUrl
