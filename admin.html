@@ -366,10 +366,29 @@ window.currentProducts = result.products || [];
     }
 
 
-const rows = document.querySelectorAll(
-  "#productList tr"
-);
+const tbody = document.getElementById("productList");
+tbody.innerHTML = "";
 
+result.products.forEach((product) => {
+  const row = tbody.insertRow();
+
+  row.insertCell().textContent = product.name;
+  row.insertCell().textContent =
+    "₩" + Number(product.price).toLocaleString("ko-KR");
+  row.insertCell().textContent = product.stock + "개";
+
+  const cell = row.insertCell();
+
+  const edit = document.createElement("button");
+  edit.textContent = "수정";
+  edit.onclick = () => editProduct(product.index);
+  cell.appendChild(edit);
+
+  const del = document.createElement("button");
+  del.textContent = "삭제";
+  del.onclick = () => deleteProduct(product.index);
+  cell.appendChild(del);
+});
 
    
   
