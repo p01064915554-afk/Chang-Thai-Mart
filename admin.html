@@ -265,7 +265,9 @@ document.getElementById("todaySales").textContent = "₩" + todaySales.toLocaleS
     <option value="신규주문" ${order.status === "신규주문" ? "selected" : ""}>신규주문</option>
     <option value="주문확인" ${order.status === "주문확인" ? "selected" : ""}>주문확인</option>
     <option value="배송중" ${order.status === "배송중" ? "selected" : ""}>배송중</option>
-    <option value="배송완료" ${order.status === "배송완료" ? "selected" : ""}>배송완료</option>
+    <option value="배송완료" ${order.status === "배송완료" ? "selected" : ""}>배송완료</option> 
+<option value="주문취소" ${order.status === "주문취소" ? "selected" : ""}>주문취소</option>
+
   </select>
 </td>
       `;
