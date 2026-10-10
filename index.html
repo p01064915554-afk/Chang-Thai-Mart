@@ -428,7 +428,7 @@ productStock = result.products;
       detailTh: "",
       price: Number(item.price),
       stock: Number(item.stock),
-      image: ""
+      image: item.imageUrl || item.image || ""
     });
   }
 });
