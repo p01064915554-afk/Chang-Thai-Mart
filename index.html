@@ -423,7 +423,7 @@ productStock = result.products;
   if (index >= products.length) {
     products.push({
       ko: item.name,
-      th: item.name,
+      th: item.nameTh || item.name,
       detailKo: "",
       detailTh: "",
       price: Number(item.price),
