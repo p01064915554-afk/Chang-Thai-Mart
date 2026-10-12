@@ -419,27 +419,16 @@ async function loadProductStock() {
       return;
     }
 productStock = result.products;
-    productStock.forEach((item, index) => {
-  if (index >= products.length) {
-    products.push({
-      ko: item.name,
-      th: item.nameTh || item.name,
-      detailKo: "",
-      detailTh: "",
-      price: Number(item.price),
-      stock: Number(item.stock),
-      image: item.imageUrl || item.image || ""
-    });
-  }
-});
-   
 
-    productStock.forEach((item, index) => {
-      if (products[index]) {
-        products[index].price = Number(item.price);
-        products[index].stock = Number(item.stock);
-      }
-    });
+products = productStock.map((item) => ({
+  ko: item.name,
+  th: item.nameTH || item.name,
+  detailKo: "",
+  detailTh: "",
+  price: Number(item.price),
+  stock: Number(item.stock),
+  image: item.imageUrl || item.image || ""
+}));
 
     renderProducts();
   } catch (error) {
