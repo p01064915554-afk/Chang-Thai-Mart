@@ -876,18 +876,21 @@ fetch(ORDER_API, {
   body: formData
 });
 
-alert("주문이 접수되었습니다.");
 
-cart = {};
-renderCart();
-
-const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-if (isMobile) {
-  window.location.href = lineURL;
+alert(
+  "주문이 접수되었습니다!\n\n" +
+ "■ 무통장입금 안내\n" +
+  "은행: 하나은행 (KEB HANA BANK)\n" +
+  "예금주: 정현수\n" +
+  "입금계좌: 010-6491-5554\n" +
+  "입금금액: " + Number(orderData.total).toLocaleString("ko-KR") + "원\n\n" +
+  "입금 확인 후 배송이 진행됩니다."
+);
 } else {
   navigator.clipboard.writeText(orderMessage);
-  alert("주문내용이 복사되었습니다. LINE에서 붙여넣어 전송해주세요.");
+ 
+ 
+
  
 }
 }
